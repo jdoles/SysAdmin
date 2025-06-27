@@ -2,7 +2,7 @@
     RemoveUnwantedApps.ps1
     Author: Justin Doles
     Requires: PowerShell 5 or higher
-    Updated: 2025-05-21
+    Updated: 2025-06-27
     Repository: https://github.com/jdoles/PowerShell
 #>
 <#
@@ -102,6 +102,7 @@ $software = @(
     "Microsoft.BingSearch",
     "Microsoft.BingSports",
     "Microsoft.BingWeather",
+    "MicrosoftWindows.CrossDevice",
     "Microsoft.Getstarted"
     "Microsoft.MicrosoftSolitaireCollection",
     "Microsoft.MicrosoftOfficeHub",
