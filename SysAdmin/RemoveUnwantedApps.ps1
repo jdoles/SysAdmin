@@ -102,7 +102,7 @@ $software = @(
     "Microsoft.BingSearch",
     "Microsoft.BingSports",
     "Microsoft.BingWeather",
-    "MicrosoftWindows.CrossDevice",
+    "MicrosoftWindows.CrossDevice", # Cross-device experiences. Negatively affects Kiosk mode.  Related to "Your Phone" app.
     "Microsoft.Getstarted"
     "Microsoft.MicrosoftSolitaireCollection",
     "Microsoft.MicrosoftOfficeHub",
@@ -117,7 +117,7 @@ $software = @(
     "Microsoft.XboxIdentityProvider",
     #"Microsoft.XboxGameCallableUI", # this does not seem to be removable
     "Microsoft.XboxSpeechToTextOverlay",
-    "Microsoft.YourPhone",
+    "Microsoft.YourPhone", # Your Phone app. Negatively affects Kiosk mode.
     "Microsoft.ZuneMusic",
     "Microsoft.ZuneVideo"
 )
