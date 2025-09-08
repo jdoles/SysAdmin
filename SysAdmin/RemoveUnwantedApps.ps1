@@ -2,7 +2,7 @@
     RemoveUnwantedApps.ps1
     Author: Justin Doles
     Requires: PowerShell 5 or higher
-    Updated: 2025-06-27
+    Updated: 2025-08-14
     Repository: https://github.com/jdoles/PowerShell
 #>
 <#
@@ -95,7 +95,7 @@ function Remove-Apps {
     }
 }
 
-# List of unwanted Microsoft apps to remove
+# List of unwanted apps to remove
 $software = @(
     "Microsoft.BingFinance",
     "Microsoft.BingNews",
@@ -119,7 +119,10 @@ $software = @(
     "Microsoft.XboxSpeechToTextOverlay",
     "Microsoft.YourPhone", # Your Phone app. Negatively affects Kiosk mode.
     "Microsoft.ZuneMusic",
-    "Microsoft.ZuneVideo"
+    "Microsoft.ZuneVideo",
+    "king.com.CandyCrushFriends",
+    "king.com.FarmHeroesSaga"
+
 )
 
 # Counter for the number of apps found
