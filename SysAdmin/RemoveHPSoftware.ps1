@@ -2,7 +2,7 @@
     RemoveHPSoftware.ps1
     Author: Justin Doles
     Requires: PowerShell 5 or higher
-    Updated: 2025-07-04
+    Updated: 2025-09-16
     Repository: https://github.com/jdoles/PowerShell
 #>
 <#
@@ -129,10 +129,12 @@ $packages = @(
     ".HPEasyClean",
     ".HPSystemInformation",
     ".HPPCHardwareDiagnosticsWindows",
+    ".HPJumpStart",
     ".HPPrivacySettings",
     ".HPQuickDrop",
     ".HPSureShieldAI",
-    ".myHP"    
+    ".HPWorkWise", # HP WorkWise
+    ".myHP"   
 )
 
 # Counter for the number of apps found
