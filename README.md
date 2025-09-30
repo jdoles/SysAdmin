@@ -6,8 +6,8 @@ Scripts to aid in Active Directory tasks
 Scripts to manage Exchange servers
 ## SysAdmin
 System administration scripts
-- SonicWALL
 - BGInfo
 - HP
+- SonicWALL
 - Remove Unwanted Windows Apps
 - Get stats for folders in Windows
