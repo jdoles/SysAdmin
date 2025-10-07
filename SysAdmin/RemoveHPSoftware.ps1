@@ -2,7 +2,7 @@
     RemoveHPSoftware.ps1
     Author: Justin Doles
     Requires: PowerShell 5 or higher
-    Updated: 2025-09-16
+    Updated: 2025-10-07
     Repository: https://github.com/jdoles/PowerShell
 #>
 <#
@@ -103,10 +103,16 @@ $software = @(
     "HP Customer Experience Enhancements",
     "HP Documentation",
     "HP Easy Clean",
+    "HP Dropbox Plugin",
+    "HP EmailSMTP Plugin",
+    "HP FTP Plugin",
     "HP Games",
+    "HP Google Drive Plugin",
     "HP Notifications",
     "HP Odometer",
+    "HP OneDrive Plugin",
     "HP Setup",
+    "HP SharePoint Plugin",
     "HP SoftPaq Download Manager",
     "HP Software Setup",
     "HP Support Assistant",
@@ -144,10 +150,15 @@ $appsRemoved = 0
 Write-Log -Message "Searching for installed HP software..."
 $softwareList = Get-WmiObject -Class  Win32_Product -Filter "Name like 'HP%'" 
 
-# Loop through each unwanted software and remove it if found
-$softwareList | ForEach-Object {
-    if ($_.Name -in $software) {
-        Remove-Software -Software $_
+if ($softwareList.Count -eq 0) {
+    Write-Log -Message "No HP software installations found."
+} else {
+    Write-Log -Message "Found $($softwareList.Count) HP software installations."
+    # Loop through each unwanted software and remove it if found
+    $softwareList | ForEach-Object {
+        if ($_.Name -in $software) {
+            Remove-Software -Software $_
+        }
     }
 }
 
