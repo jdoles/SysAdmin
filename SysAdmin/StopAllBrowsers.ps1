@@ -3,7 +3,7 @@
     Author: Justin Doles
     Requires: PowerShell 5 or higher
     Updated: 2025-10-23
-    Repository: https://github.com/jdoles/PowerShell
+    Repository: https://github.com/jdoles/SysAdmin
 #>
 <#
     .SYNOPSIS

@@ -1,4 +1,4 @@
-# PowerShell Collection
+# Scripts & Guides Collection
 Collection of scripts and guides to perform various administrative tasks
 ## ActiveDirectory
 Scripts to aid in Active Directory tasks
