@@ -3,7 +3,7 @@
 ## Prequisites
 You'll need a Linux terminal or Cygwin if you're operating on Windows.
 
-
+## Steps
 1. Create a configuration file.  Fill in the relevant information under ``req_distinguished_name`` for your needs.
 ```
 [ req ]
@@ -29,5 +29,5 @@ DNS.1 = server1.example.com
 DNS.2 = server2.example.com
 ```
 
-2. Execute the following command.  Adjust the ``-keyout``, ``-out``, and ``-config`` parameters as needed.
+2. Execute the following command.  Adjust the ``-keyout``, ``-out``, ``-days``, and ``-config`` parameters as needed.
 ``openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout joeit-server.key -out joeit-server.crt -config joeit-server.cnf``

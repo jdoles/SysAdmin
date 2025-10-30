@@ -1,5 +1,5 @@
 # PowerShell Collection
-Collection of PowerShell scripts to perform various administrative tasks
+Collection of scripts and guides to perform various administrative tasks
 ## ActiveDirectory
 Scripts to aid in Active Directory tasks
 ## Exchange
@@ -12,3 +12,4 @@ System administration scripts
 - Remove Unwanted Windows Apps
 - Get stats for folders in Windows
 - Rename computer
+- Generate SSL certificates
