@@ -65,39 +65,32 @@ function Get-LastLogon {
 
     process {
         Write-Log -Message "Starting Last Logon retrieval for $($UserList.Count) users across $($DCList.Count) domain controllers." -Level "INFO"
+        # Iterate through each user
         foreach ($user in $UserList) {
             $samAccountName = $user.SamAccountName
             $latestLogon = 0
 
+            # Iterate through each domain controller to get the last logon time for the user
             foreach ($DC in $DCList) {
-                #Write-Log -Message "Processing user: $samAccountName on domain controller $DC" -Level "INFO"
-
                 $account = Get-ADUser -Filter "SamAccountName -eq '$samAccountName'" -Properties lastLogon,lastLogonTimestamp,Enabled -Server $DC
 
+                # Check if account exists. If not, log a warning and continue to next DC.
                 if (!$account) {
                     Write-Log -Message "No user account found on $DC for $samAccountName" -Level "WARN"
                     continue
                 }
 
-                #Write-Log -Message "LastLogon         : $([datetime]::FromFileTime($account.lastLogon))" -Level "INFO"
-                #Write-Log -Message "LastLogonTimeStamp: $([datetime]::FromFileTime($account.lastLogonTimestamp))" -Level "INFO"
+                # Compare the lastLogon and lastLogonTimestamp to find the most recent logon time
+                $logontime = $account.lastLogon,$account.lastLogonTimestamp | Sort-Object -Descending | Select-Object -First 1
 
-                $logontime = $account.lastLogon,$account.lastLogonTimestamp |
-                    Sort-Object -Descending | Select-Object -First 1
-
+                # Set the latest logon time if it's greater than the current latest
                 if ($logontime -gt $latestLogon) {
                     $latestLogon = $logontime
                 }
             }
 
+            # Output or export the result
             if ($account) {
-                #switch ([datetime]::FromFileTime($latestLogon)) {
-                #    {$_.year -eq '1600'} {
-                #        "Never"
-                #    }
-                    #default { $_ }
-                #}
-
                 if ($ExportCSV -eq $true) {
                     $lastlogon = [PSCustomObject]@{
                         Name            = $user.Name
