@@ -1,12 +1,5 @@
 #Requires -Version 5.1
 <#
-    GetFolderSize.ps1
-    Author: Justin Doles
-    Requires: PowerShell 5 or higher
-    Updated: 2025-05-23
-    Repository: https://github.com/jdoles/SysAdmin
-#>
-<#
 .SYNOPSIS
     This script calculates the size of each folder in a specified directory and sorts them by size.
 .DESCRIPTION
@@ -30,15 +23,33 @@
     If specified, the script will show progress during the analysis.
 .PARAMETER CalculateLargestSubfolder
     If specified, the script will calculate the largest subfolder within the largest folder found.
+.NOTES
+    Author: Justin Doles
+    Date: 2025-05-23
+    Requires: PowerShell 5 or higher
 #>
 
 param (
+    [Parameter(Mandatory)]
+    [ValidateScript({ Test-Path $_ -PathType Container })]
     [string]$Path = "C:\",
+
+    [Parameter()]
     [string]$OutputCsv = "",
+
+    [Parameter()]
     [string[]]$ExcludeFolders = @(),
+    
+    [Parameter()]
     [switch]$IncludeReparsePoints,
+    
+    [Parameter()]
     [int]$MaxDepth = 3,
+    
+    [Parameter()]
     [switch]$ShowProgress,
+    
+    [Parameter()]
     [switch]$CalculateLargestSubfolder
 )
 
@@ -50,6 +61,22 @@ $largestFolder = ""
 $largestSize = 0
 # Stores the number of processed directories
 $processedCount = 0
+
+# Function to log messages with a timestamp
+function Write-Log {
+    param (
+        [string]$Message,
+        [string]$Level = "INFO"
+    )
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    switch ($Level) {
+        "INFO" { $color = "Green" }
+        "WARN" { $color = "Yellow" }
+        "ERROR" { $color = "Red" }
+        default { $color = "White" }
+    }
+    Write-Host "[$timestamp] [$Level]: $Message" -ForegroundColor $color
+}
 
 <# Get the size of a folder and its contents #>
 function Get-FolderSizeOptimized {
