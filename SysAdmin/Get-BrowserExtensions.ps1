@@ -16,6 +16,27 @@
 #>
 
 function Resolve-LocalizedExtensionName {
+    <#
+    .SYNOPSIS
+        Resolves a Chromium extension's localized name placeholder to its real display name.
+    .DESCRIPTION
+        Chromium-based extensions that localize their name store a placeholder like
+        "__MSG_appName__" in manifest.json instead of a literal string. This function detects
+        that pattern, then looks up the actual name in the extension's
+        _locales/<locale>/messages.json file, trying the manifest's default locale first and
+        falling back to common English locales and whatever locales are actually present.
+        If the name isn't a placeholder, or the key can't be resolved, the input name is
+        returned unchanged.
+    .PARAMETER Name
+        The raw "name" value from the extension's manifest.json.
+    .PARAMETER DefaultLocale
+        The extension's "default_locale" value from manifest.json, if any.
+    .PARAMETER VersionFolderPath
+        Full path to the extension's version folder (the folder containing manifest.json and,
+        for localized extensions, the _locales subfolder).
+    .OUTPUTS
+        System.String - the resolved display name, or the original value if it couldn't be resolved.
+    #>
     param(
         [string]$Name,
         [string]$DefaultLocale,
@@ -56,6 +77,23 @@ function Resolve-LocalizedExtensionName {
 }
 
 function Get-ChromiumExtensions {
+    <#
+    .SYNOPSIS
+        Gets installed extensions for a Chromium-based browser (Chrome, Edge, etc.).
+    .DESCRIPTION
+        Scans the given browser's "Default" profile Extensions folder, reads each extension's
+        manifest.json from its latest version folder, and resolves any localized name
+        placeholder via Resolve-LocalizedExtensionName. Emits one object per extension with
+        Browser, Profile, ExtensionID, Name, and Version. If the browser's extension path
+        doesn't exist, warns and returns nothing. If a manifest can't be read or parsed, the
+        extension is still emitted with Name and Version set to "Unknown".
+    .PARAMETER BrowserName
+        Display name of the browser (e.g. "Chrome", "Edge"), used to label output rows.
+    .PARAMETER ExtensionPath
+        Full path to the browser profile's Extensions folder.
+    .OUTPUTS
+        PSCustomObject with Browser, Profile, ExtensionID, Name, and Version properties.
+    #>
     param(
         [string]$BrowserName,
         [string]$ExtensionPath
@@ -99,6 +137,20 @@ function Get-ChromiumExtensions {
 }
 
 function Get-FirefoxExtensions {
+    <#
+    .SYNOPSIS
+        Gets installed extensions for all Firefox profiles belonging to the current user.
+    .DESCRIPTION
+        Firefox extensions are packaged as .xpi files rather than plain folders, so unlike the
+        Chromium browsers this reads each profile's extensions.json (Firefox's own add-on
+        database), which already contains the resolved display name, version, and ID. All
+        profile folders under the user's Firefox Profiles directory are scanned. Only
+        user-visible, user-installed extensions are returned; hidden/built-in system add-ons
+        (which can also appear under the 'app-profile' location) are filtered out. If the
+        Firefox profiles path doesn't exist, warns and returns nothing.
+    .OUTPUTS
+        PSCustomObject with Browser, Profile, ExtensionID, Name, and Version properties.
+    #>
     $ProfilesRoot = "$env:APPDATA\Mozilla\Firefox\Profiles"
 
     if (-not (Test-Path $ProfilesRoot)) {
