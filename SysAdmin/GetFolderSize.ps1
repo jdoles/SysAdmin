@@ -7,6 +7,9 @@
 .EXAMPLE
     GetFolderSize -Path "C:\temp"
 .NOTES
+    Author: Justin Doles
+    Date: 2025-05-23
+    Requires: PowerShell 5 or higher
     This script requires PowerShell 5 or higher.  Ideally, you should choose a path other than C:\ to avoid long wait times.
 .PARAMETER Path
     The root path to scan for folder sizes. Default is "C:\".
@@ -23,10 +26,6 @@
     If specified, the script will show progress during the analysis.
 .PARAMETER CalculateLargestSubfolder
     If specified, the script will calculate the largest subfolder within the largest folder found.
-.NOTES
-    Author: Justin Doles
-    Date: 2025-05-23
-    Requires: PowerShell 5 or higher
 #>
 
 param (
