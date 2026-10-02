@@ -4,6 +4,10 @@ Collection of scripts and guides to perform various administrative tasks
 Scripts to aid in Active Directory tasks
 ## Exchange
 Scripts to manage Exchange servers
+## InTune
+Scripts to report on Intune-managed devices
+- Windows device IP address report (CSV + HTML) via Microsoft Graph
+
 ## SysAdmin
 System administration scripts
 - BGInfo deployment
